@@ -1,10 +1,11 @@
 import express from 'express'
-import postRoutes from './routes/post.route.js'
+import cookieParser from 'cookie-parser'
 import authRoutes from './routes/auth.route.js'
 
 const app = express()
 
 app.use(express.json()) // middleware to allow json outpurs
+app.use(cookieParser()) // middleware that makes creation of cookies simple
 
 app.use('/api/auth', authRoutes);
 
