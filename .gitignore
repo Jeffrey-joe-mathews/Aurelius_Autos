@@ -150,3 +150,6 @@ node_modules
 psd
 thumb
 sketch
+
+*node_modules/*
+.env
