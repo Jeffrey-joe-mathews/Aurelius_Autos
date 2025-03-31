@@ -1,6 +1,6 @@
 import React from 'react'
 import './layout.scss'
-import Navbar from './components/Navbar/Navbar'
+import Navbar from './components/navbar/Navbar'
 import HomePage from './routes/homePage/homePage'
 
 const App = () => {

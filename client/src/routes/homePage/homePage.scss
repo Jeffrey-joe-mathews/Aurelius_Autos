@@ -18,6 +18,10 @@
 
             .title {
                 font-size: 64px; 
+
+                @include lg {
+                    font-size: 48px;
+                }
             }
 
             .boxes {
@@ -27,11 +31,27 @@
 
                 h1 {
                     font-size: 36px;
+
+                    @include lg {
+                        font-size: 32px;
+                    }
                 }
                 h2 {
                     font-size: 20px;
                     font-weight: 300;
                 }
+
+                @include sm {
+                    display: none;
+                }
+            }
+
+            @include md {
+                padding: 0;
+            }
+
+            @include sm {
+                justify-content: flex-start;
             }
         }
     }    
@@ -46,6 +66,14 @@
             width: 125%;
             position: absolute;
             left: -6%;
+
+            @include lg {
+                width: 105%;
+            }
+        }
+
+        @include md {
+            display:none;
         }
     }
 }

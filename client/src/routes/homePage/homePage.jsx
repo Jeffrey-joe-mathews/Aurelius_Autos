@@ -26,7 +26,7 @@ function HomePage(){
             </div>
         </div>
         <div className="imgContainer">
-            <img src="/bg.svg" alt="" srcset="" />
+            <img src="/bg.svg" alt="background" />
         </div>
     </div>
   )

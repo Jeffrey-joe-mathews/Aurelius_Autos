@@ -1,0 +1,91 @@
+@use '../../responsive.scss' as *;
+
+.searchBar {
+    .type {
+        button {
+            padding: 16px 36px;
+            border: 1px solid grey;
+            cursor: pointer;
+            background-color: white;
+            text-transform: capitalize;
+
+            &.active {
+                background-color: black;
+                color: white;
+                transition: all 0.5s ease;
+            }
+
+            &:first-child{
+                border-top-left-radius: 5px;
+                border-right: none;
+                border-bottom: none;
+
+                @include sm {
+                    border-bottom: 1px solid grey;
+                }
+            }
+            &:last-child{
+                border-top-right-radius: 5px;
+                border-left: none;
+                border-bottom: none;
+            }
+        }
+
+        @include sm {
+            margin-bottom: 5px;
+        }
+    }
+
+    form {
+        border: 1px solid grey;
+        display: flex;
+        justify-content: space-between;
+        height: 64px;
+        gap: 5px;
+
+        input {
+            border: none;
+            padding: 0px 10px;
+            width: 200px;
+
+            @include lg {
+                padding: 0px 5px;
+
+                &:nth-child(2),&:nth-child(3) {
+                    width: 140px;
+                }
+            }
+
+            @include md {
+                width: auto;
+                &:nth-child(2),&:nth-child(3) {
+                    width: auto;
+                }
+            }
+
+            @include sm {
+                padding: 20px;
+            }
+        }
+
+        button {
+            border: none;
+            cursor: pointer;
+            background-color: #fece51;
+            flex: 1;
+
+            img {
+                width: 24px;
+            }
+
+            @include sm {
+                padding: 10px; 
+            }
+        }
+
+        @include sm {
+            flex-direction: column;
+            border: none;
+        }
+    }
+}
