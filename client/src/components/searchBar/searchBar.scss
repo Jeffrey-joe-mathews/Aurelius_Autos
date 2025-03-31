@@ -19,20 +19,12 @@
                 border-top-left-radius: 5px;
                 border-right: none;
                 border-bottom: none;
-
-                @include sm {
-                    border-bottom: 1px solid grey;
-                }
             }
             &:last-child{
                 border-top-right-radius: 5px;
                 border-left: none;
                 border-bottom: none;
             }
-        }
-
-        @include sm {
-            margin-bottom: 5px;
         }
     }
 
@@ -47,6 +39,7 @@
             border: none;
             padding: 0px 10px;
             width: 200px;
+            text-align: center;
 
             @include lg {
                 padding: 0px 5px;
@@ -57,14 +50,19 @@
             }
 
             @include md {
-                width: auto;
+                width: 200px;
                 &:nth-child(2),&:nth-child(3) {
-                    width: auto;
+                    width: 200px;
                 }
             }
 
             @include sm {
+                width: auto;
+                &:nth-child(2),&:nth-child(3) {
+                    width: auto;
+                }
                 padding: 20px;
+                border: 1px solid grey;
             }
         }
 
@@ -80,6 +78,10 @@
 
             @include sm {
                 padding: 10px; 
+            }
+
+            @include lg {
+                padding: 20px;
             }
         }
 
