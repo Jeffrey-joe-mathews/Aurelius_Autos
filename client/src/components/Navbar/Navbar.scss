@@ -1,3 +1,5 @@
+@use '../../responsive.scss' as *;
+
 nav {
     height: 100px;
     display: flex;
@@ -5,20 +7,71 @@ nav {
     align-items: center;
     flex-direction: row;
 
+    a {
+        transition: all 0.4s ease;
+        @include sm {
+            display: none;
+        }
+
+        &:hover {
+            scale: 1.07;
+        }
+    }
+
     .left {
         flex: 3;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 50px;
     
         .logo {
+            max-height: 100px;
             font-weight: bold;
             font-size: 20px;
             display: flex;
             gap: 10px;
-        }
+            align-items: center;
 
+            img {
+                width: 58px;;
+            }
+
+            span {
+                @include md {
+                    display: none;
+                }
+
+                @include sm {
+                    display: initial;
+                }
+            }
+        }
     }
 
     .right {
+        height: 100%;
         flex: 2;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        background-color: #fcf5f3;
+        
+        a {
+            padding: 12px 24px;
+            margin: 20px;
+        }
+
+        .register {
+            background-color: #fece51;
+        }
+
+        .menuIcon {
+            display: none;
+            @include sm {
+                display: inline;
+            }
+        }
     }
 
 }
