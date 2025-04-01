@@ -82,6 +82,10 @@
             color: white;
             padding: 60px;
             font-weight: bold;
+
+            &:hover {
+                cursor: pointer;
+            }
         }
 
         
