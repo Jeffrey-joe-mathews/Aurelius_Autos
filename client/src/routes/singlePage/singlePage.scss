@@ -8,6 +8,7 @@
             padding-right: 50px;
 
             .info {
+                margin-top: 30px;
                 .top {
                     display: flex;
                     justify-content: space-between; 
@@ -63,6 +64,11 @@
                         }
 
                     }
+                }
+                .bottom {
+                    margin-top: 50px;
+                    color: grey;
+                    line-height: 22px;
                 }
             }
         }
