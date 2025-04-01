@@ -16,5 +16,83 @@
 
     .txtContainer {
         flex: 3;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 10px;
+
+        img {
+            width: 16px;
+            height: 16px;
+        }
+
+        .title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #444;
+            transition: all 0.4s ease;
+
+            &:hover {
+                color: #000;
+                scale: 1.05;
+            }
+        }
+
+        .address {
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #888;
+        }
+
+        .price {
+            font-size: 20px;
+            font-weight: 300;
+            padding: 5px;
+            border-radius: 5px;
+            width: max-content;
+            background-color: rgba(254, 205, 81, 0.438);
+        }
+
+        .bottom {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+
+            .features {
+                display: flex;
+                gap: 20px;
+                font-size: 14px;
+
+                .feature {
+                    display: flex;
+                    align-items: center;
+                    gap: 5px;
+                    background-color: whitesmoke;
+                    padding: 5px;
+                    border-radius: 5px;
+                }
+            }
+
+            .icons {
+                display: flex;
+                gap: 20px;
+
+                .icon {
+                    border: 1px solid grey;
+                    padding: 2px 5px;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    &:hover {
+                        background-color: lightgray;
+                    }
+                }
+            }
+        }
     }
 }
