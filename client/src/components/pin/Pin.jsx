@@ -4,7 +4,7 @@ import { Marker, Popup } from 'react-leaflet'
 
 const Pin = ({item}) => {
   return (
-    <Marker position={[item.latitude, item.longitude]}>
+    <Marker position={[item.latitude, item.longitude]} className='pin' >
         <Popup>
             <div className="popupContainer">
                 <img src={item.img} alt="image" />
