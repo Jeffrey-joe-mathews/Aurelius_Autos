@@ -1,3 +1,64 @@
 .profilePage {
-    
+    display: flex;
+    height: 100%;
+
+    .details {
+        flex: 3;
+        overflow-y: scroll;
+
+        .wrapper {
+            padding-right: 50px;
+            display: flex;flex-direction: column;
+            gap: 50px;
+            padding-bottom: 50px;
+
+            .title {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                h1 {
+                    font-weight: 300;
+                }
+
+                button {
+                    padding: 12px 24px;
+                    background-color: #fece51;
+                    cursor: pointer;
+                    border: none;
+                    border-radius: 8px;
+
+                }
+            }
+
+            .info {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+
+                img {
+                    height: 60px;
+                    width: 60px;
+                    border-radius: 50%;
+                    object-fit: cover;
+                }
+
+                span {
+                    display: flex;
+                    align-items: center;
+                    gap: 20px;
+                }
+            }
+        }
+    }
+
+    .chatContainer {
+        flex: 2;
+        background-color: #fcf5f3;
+        height: 100%;
+
+        .wrapper {
+            padding: 0px 20px;
+        }
+    }
 }

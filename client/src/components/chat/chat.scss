@@ -1,0 +1,15 @@
+.chat {
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+
+    .messages {
+        flex: 1;
+
+        
+    }
+
+    .chatContainer {
+        flex: 1;
+    }
+}
