@@ -6,7 +6,7 @@ import Map from '../../components/map/Map.jsx'
 const SinglePage = () => {
   return (
     <div className='singlePage'>
-      <div className="details">
+      <div  className="details">
         <div className="wrapper">
           <ImgSlider images={singlePostData.images} />
           <div className="info">
