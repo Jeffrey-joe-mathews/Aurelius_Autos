@@ -39,6 +39,43 @@
     .chatBox {
         flex: 1;
         height: 100%;
-        // background-color: purple;
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .top {
+            background-color: #f7c14b85;
+            padding: 20px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .user {
+                display: flex;
+                align-items:center;
+                justify-content: space-between;
+                gap: 20px;
+
+                img {
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 50%;
+                    object-fit: cover;
+                }
+            }
+            .close {
+                cursor: pointer;
+            }
+        }
+
+        .center {
+
+        }
+
+        .bottom {
+            border-top: 2px solid #f7c14b85;
+        }
     }
 }
