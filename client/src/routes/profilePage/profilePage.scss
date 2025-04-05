@@ -60,6 +60,26 @@
                     align-items: center;
                     gap: 20px;
                 }
+
+                button {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 100px;
+                    padding: 15px;
+                    border: none;
+                    background-color: #ffd468c0;
+                    border-radius: 7px;
+                    cursor: pointer;
+
+                    &:hover {
+                        background-color: #fece51;
+                    }
+                }
+            }
+
+            @include sm {
+                padding-right: 0px;
             }
         }
     }

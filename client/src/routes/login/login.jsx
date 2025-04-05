@@ -26,8 +26,11 @@ const Login = () => {
         username:username,
         password: password
       })
-      console.log(res.data)
-      // navigate()
+      
+      localStorage.setItem("user", JSON.stringify(res.data));
+
+      // console.log(res)
+      navigate("/")
     }
 
     catch (err) {

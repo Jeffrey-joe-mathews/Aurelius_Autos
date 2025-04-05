@@ -41,7 +41,6 @@ export const login = async (req, res) => {
     // db operations
     const {username, password} = req.body;
     try {
-
         // check if the user exists
         const user = await prisma.user.findUnique(
             {
@@ -75,6 +74,9 @@ export const login = async (req, res) => {
         const token = jwt.sign({
             id:user.id,  
         }, process.env.JWT_SECRET_KEY, {expiresIn:age})
+
+        // removing the password
+        const {password: userPassword, ...userInfo} = user;
 
         res.cookie("token", token, {
             httpOnly : true, // prevents client side js from accessing the cookie
