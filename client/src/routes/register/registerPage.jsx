@@ -1,7 +1,7 @@
 import "./registerPage.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import axios from 'axios'
+import apiRequest from '../../lib/apiRequest'
 
 function Register() {
   const [error, setError] = useState("");
@@ -12,6 +12,7 @@ function Register() {
   const handleSubmit = async (e) => {
 
     e.preventDefault()
+    setIsLoading(() => true)
     const formData = new FormData(e.target);
     const username = formData.get("username");
     const email = formData.get("email");
@@ -20,7 +21,7 @@ function Register() {
 
     try {
 
-      const res = await axios.post('http://localhost:9876/api/auth/register', {
+      const res = await apiRequest.post('/auth/register', {
         username:username,
         email: email,
         password: password
@@ -32,6 +33,10 @@ function Register() {
     catch (err) {
       console.error(err)
       setError(err.response.data.message)
+    }
+
+    finally {
+      setIsLoading( () => false)
     }
 
   };
