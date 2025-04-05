@@ -7,7 +7,7 @@ function Register() {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
 
@@ -18,11 +18,21 @@ function Register() {
     const password = formData.get("password");  
     console.log(username, email, password);
 
-    const res = await axios.post('localhost:9876/api/auth/register', {
-      username:username,
-      email: email,
-      password: password
-    })
+    try {
+
+      const res = await axios.post('http://localhost:9876/api/auth/register', {
+        username:username,
+        email: email,
+        password: password
+      })
+      console.log(res.data)
+      navigate('/login')
+    }
+
+    catch (err) {
+      console.error(err)
+      setError(err.response.data.message)
+    }
 
   };
   return (
