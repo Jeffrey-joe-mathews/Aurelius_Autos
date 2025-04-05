@@ -36,7 +36,7 @@ const Navbar = () => {
             <img src="/menu.png" alt="hamburger" onClick={() => setOpen((prev) => !prev) } />
           </div>
           <div className={open ? "menu active" : "menu"}>
-            <a href="/">import axios from "axios"Home</a>
+            <a href="/">Home</a>
             <a href="/">About</a>
             <a href="/">Contact</a>
             <a href="/">Agents</a>

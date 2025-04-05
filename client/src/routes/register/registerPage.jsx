@@ -1,6 +1,7 @@
 import "./registerPage.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import axios from 'axios'
 
 function Register() {
   const [error, setError] = useState("");
@@ -9,28 +10,20 @@ function Register() {
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("")
-    setIsLoading(true);
-    const formData = new FormData(e.target);
 
+    e.preventDefault()
+    const formData = new FormData(e.target);
     const username = formData.get("username");
     const email = formData.get("email");
-    const password = formData.get("password");
+    const password = formData.get("password");  
+    console.log(username, email, password);
 
-    try {
-      const res = await apiRequest.post("/auth/register", {
-        username,
-        email,
-        password,
-      });
+    const res = await axios.post('localhost:9876/api/auth/register', {
+      username:username,
+      email: email,
+      password: password
+    })
 
-      navigate("/login");
-    } catch (err) {
-      setError(err.response.data.message);
-    } finally {
-      setIsLoading(false);
-    }
   };
   return (
     <div className="registerPage">
