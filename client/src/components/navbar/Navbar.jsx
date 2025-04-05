@@ -20,7 +20,7 @@ const Navbar = () => {
         <div className="right">
           { !user ? (
             <>
-            <a href="/">Sign-In</a>
+            <a href="/login">Sign-In</a>
             <a href="/register" className='register' >Sign-Up</a>
             </> ):
             (<div className='user' >
@@ -40,7 +40,7 @@ const Navbar = () => {
             <a href="/">About</a>
             <a href="/">Contact</a>
             <a href="/">Agents</a>
-            <a href="/">Sign-In</a>
+            <a href="/login">Sign-In</a>
             <a href="/register">Sign-Up</a>
           </div>
         </div>
