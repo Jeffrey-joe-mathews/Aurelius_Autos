@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
-  const user = true;
+  const user = false;
   return (
     <nav>
         <div className="left">
@@ -21,7 +21,7 @@ const Navbar = () => {
           { !user ? (
             <>
             <a href="/">Sign-In</a>
-            <a href="/" className='register' >Sign-Up</a>
+            <a href="/register" className='register' >Sign-Up</a>
             </> ):
             (<div className='user' >
               <img src="https://avatars.githubusercontent.com/u/171322141?v=4" alt="profilepic" />
@@ -36,12 +36,12 @@ const Navbar = () => {
             <img src="/menu.png" alt="hamburger" onClick={() => setOpen((prev) => !prev) } />
           </div>
           <div className={open ? "menu active" : "menu"}>
-            <a href="/">Home</a>
+            <a href="/">import axios from "axios"Home</a>
             <a href="/">About</a>
             <a href="/">Contact</a>
             <a href="/">Agents</a>
             <a href="/">Sign-In</a>
-            <a href="/">Sign-Up</a>
+            <a href="/register">Sign-Up</a>
           </div>
         </div>
     </nav>
