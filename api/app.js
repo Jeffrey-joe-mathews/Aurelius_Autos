@@ -3,6 +3,7 @@ import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import authRoutes from './routes/auth.route.js'
+import testRoutes from './routes/test.route.js'
 
 dotenv.config()
 const app = express()
@@ -12,6 +13,7 @@ app.use(cookieParser()); // middleware that makes creation of cookies simple
 app.use(cors({origin:process.env.CLIENT_URL, credentials:true}))
 
 app.use('/api/auth', authRoutes);
+app.use('/api/test', testRoutes);
 
 app.listen(9876, () => {
     console.log("The api is running on port 9876");
