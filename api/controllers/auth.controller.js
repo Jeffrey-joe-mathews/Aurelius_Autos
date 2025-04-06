@@ -84,10 +84,7 @@ export const login = async (req, res) => {
             // secure: true, // for https connection(prod)
             maxAge : age
         }).status(200).json(
-            {
-                "success" : true,
-                "message" : "Login Successful"
-            }
+            {userInfo}
         )
     }
     catch(error) {
