@@ -3,7 +3,7 @@ import List from '../../components/list/List'
 import './profilePage.scss'
 import apiRequest from '../../lib/apiRequest'
 import { useNavigate } from 'react-router-dom'
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { AuthContext } from '../../context/AuthContext'
 
 const ProfilePage = () => {
@@ -26,7 +26,7 @@ const ProfilePage = () => {
     }
 
   return (
-    <div className='profilePage'>
+        <div className='profilePage'>
         <div className="details">
             <div className="wrapper">
                 <div className="title">

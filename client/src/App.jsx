@@ -1,7 +1,7 @@
 import React from 'react'
 import HomePage from './routes/homePage/homePage'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Layout from './routes/layout/layout'
+import { Layout, RequireAuth } from './routes/layout/layout'
 import ListPage from './routes/listPage/listPage'
 import SinglePage from './routes/singlePage/singlePage'
 import ProfilePage from './routes/profilePage/profilePage'
@@ -27,10 +27,6 @@ const App = () => {
           element: <SinglePage />
         },
         {
-          path: "/profile",
-          element: <ProfilePage />
-        },
-        {
           path: "/register",
           element: <Register />
         },
@@ -38,6 +34,16 @@ const App = () => {
           path: "/login",
           element: <Login />
         }
+      ]
+    },
+    {
+      path: "/",
+      element: <RequireAuth />,
+      children: [
+        {
+          path: "/profile",
+          element: <ProfilePage />
+        },
       ]
     }
   ])
