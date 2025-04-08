@@ -1,6 +1,9 @@
+import prisma from "../lib/prisma.js"
+
 export const getUsers = async (req, res) => {
     try {
-        console.log("Hello Warudo *w*")
+        const users = await prisma.user.findMany();
+        res.status(200).json(users)
     } catch (error) {
         console.error(error)
         res.status(500).json(
@@ -13,7 +16,13 @@ export const getUsers = async (req, res) => {
 }
 export const getUser = async (req, res) => {
     try {
-        
+        const key = req.params.id
+        const user = await prisma.user.findUnique({
+            where: { id:key }
+        })
+        res.status(200).json(
+            user
+        )
     } catch (error) {
         console.error(error)
         res.status(500).json(
@@ -26,7 +35,23 @@ export const getUser = async (req, res) => {
 }
 export const updateUser = async (req, res) => {
     try {
-        
+        const key = req.params.id
+        if(key === req.userId) {
+
+            const user = await prisma.user.update()
+            res.status(200).json(
+                {
+                }
+            )
+        }
+        else {
+            return res.status(403).json(
+                {
+                    "success" : false,
+                    "message" : "Not Authorized to UPDATE changes"
+                }
+            )
+        }
     } catch (error) {
         console.error(error)
         res.status(500).json(

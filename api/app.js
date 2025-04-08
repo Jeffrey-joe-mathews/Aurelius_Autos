@@ -15,7 +15,7 @@ app.use(cors({origin:process.env.CLIENT_URL, credentials:true}))
 
 app.use('/api/auth', authRoutes);
 app.use('/api/test', testRoutes);
-app.use('/api/user', userRoutes);
+app.use('/api/users', userRoutes);
 
 app.listen(9876, () => {
     console.log("The api is running on port 9876");
