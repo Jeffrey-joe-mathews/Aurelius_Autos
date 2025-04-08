@@ -7,29 +7,28 @@ import { useNavigate } from "react-router-dom";
 function ProfileUpdatePage() {
   
     const {currentUser, updateUser} = useContext(AuthContext);
+    const [error, setError] = useState(null);
 
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
+  const handleSubmit = async(event) => {
+    event.preventDefault()
+    const formData = new FormData(event.target)
 
     const { username, email, password } = Object.fromEntries(formData);
-
     try {
-      const res = await apiRequest.put(`/users/${currentUser.id}`, {
-        username,
-        email,
-        password,
-        avatar:avatar[0]
-      });
+      const res = await apiRequest.put(`/users/${currentUser.userInfo.id}`, {
+        username : username, 
+        email : email,
+        password : password
+      })
       updateUser(res.data);
-      navigate("/profile");
-    } catch (err) {
-      console.log(err);
-      setError(err.response.data.message);
+    } 
+    catch (error) {
+      console.error(error)
+      setError(error.response.data.message)
     }
-  };
+  }
 
   return (
     <div className="profileUpdatePage">
@@ -59,7 +58,7 @@ function ProfileUpdatePage() {
             <input id="password" name="password" type="password" />
           </div>
           <button>Update</button>
-          {/* {error && <span>error</span>} */}
+          {error && <span>error</span>}
         </form>
       </div>
       <div className="sideContainer">
