@@ -7,6 +7,7 @@ import SinglePage from './routes/singlePage/singlePage'
 import ProfilePage from './routes/profilePage/profilePage'
 import Register from './routes/register/registerPage'
 import Login from './routes/login/login'
+import ProfileUpdatePage from './routes/profileUpdatePage/profileUpdatePage'
 
 const App = () => {
   const router = createBrowserRouter([
@@ -44,6 +45,10 @@ const App = () => {
           path: "/profile",
           element: <ProfilePage />
         },
+        {
+          path: "/profile/update",
+          element: <ProfileUpdatePage />
+        }
       ]
     }
   ])
