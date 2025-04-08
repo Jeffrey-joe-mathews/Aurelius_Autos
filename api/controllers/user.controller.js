@@ -82,7 +82,31 @@ export const updateUser = async (req, res) => {
 }
 export const deleteUser = async (req, res) => {
     try {
-        
+        const key = req.params.id
+
+        if(req.userId === key) {
+            await prisma.user.delete(
+                {
+                    where: {key},
+
+                }
+            )
+            res.status(200).json(
+                {
+                    "success" : true,
+                    "message" : "user account has been DELETEd successfully",
+                    "lastMessage" : "bye bye... We will miss you... Take care ^u^"
+                }
+            )
+        }
+        else {
+            res.status(403).json(
+                {
+                    "success" : false,
+                    "message" : "Unauthorized Access... unable to DELETE"
+                }
+            )
+        }
     } catch (error) {
         console.error(error)
         res.status(500).json(
