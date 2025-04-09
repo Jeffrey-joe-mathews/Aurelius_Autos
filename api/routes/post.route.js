@@ -1,9 +1,12 @@
 import express from 'express'
-const router = express.Router()
+import { verifyToken } from '../middleware/verifyToken.js'
 
-router.get("test", (req, res) => {
-    res.send("Hello World")
-    console.log("Router works ig!!!!")
-})
+const postRoutes = express.Router
 
-export default router;
+postRoutes.get("/", getPosts)
+postRoutes.get("/:id", getPost)
+postRoutes.post("/", verifyToken, addPost)
+postRoutes.put("/:id", verifyToken, updatePost)
+postRoutes.delete("/:id", verifyToken, deletePost)
+
+export default postRoutes;

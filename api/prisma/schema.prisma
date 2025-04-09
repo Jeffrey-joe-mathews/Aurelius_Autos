@@ -22,6 +22,7 @@ model User {
   password String 
   avatar String?
   createdAt DateTime @default(now())
+  posts Post[]
 }
 
 model Post {
@@ -37,7 +38,9 @@ model Post {
   longitude String
   carType CarType
   serviceType ServiceType
-
+  createdAt DateTime @default(now())
+  user User @relation(fields: [userID], references: [id])
+  userID String @db.ObjectId
 }
 
 enum CarType {
