@@ -26,6 +26,44 @@ model User {
 
 model Post {
   id String @id @default(auto()) @map("_id") @db.ObjectId
-  title String @unique
-  
+  title String 
+  price Int
+  img String
+  address String
+  city String
+  transmission Transmission
+  mileage Float
+  latitude String
+  longitude String
+  carType CarType
+  serviceType ServiceType
+
+}
+
+enum CarType {
+  sedan
+  hatchback
+  suv
+  crossover
+  coupe
+  convertible
+  sportsCar
+  stationWagon
+  minivan
+  pickupTruck
+  electric
+  hybrid
+  luxury
+  offRoad
+  microcar
+}
+enum ServiceType {
+  rent
+  buy
+}
+enum Transmission {
+  manual
+  automatic
+  continuousVariable
+  dualClutch
 }
