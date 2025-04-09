@@ -35,14 +35,22 @@ export const getUser = async (req, res) => {
     }
 }
 export const updateUser = async (req, res) => {
-    try {
-        const key = req.params.id
-        if(key === req.userId) {
-            const {password, avatar,  ...inputs} = req.body
+    const key = req.params.id
+    const {password : newPassword, avatar,  ...inputs} = req.body
 
+    if(key !== req.userId)
+    {
+        return res.status(403).json(
+            {
+                "success" : false,
+                "message" : "Not Authorized to UPDATE changes"
+            }
+        );
+    }
+    try {
             let updatedPassword = null
-            if(password) {
-                updatedPassword = await bcrypt.hash(password, 12)
+            if(newPassword) {
+                updatedPassword = await bcrypt.hash(newPassword, 12)
 
             }
 
@@ -56,20 +64,14 @@ export const updateUser = async (req, res) => {
                     },
                 }
             )
+
+            const {password, ...userInfo} = user
+
             res.status(200).json(
                 {
-                    user
+                    userInfo
                 }
             )
-        }
-        else {
-            return res.status(403).json(
-                {
-                    "success" : false,
-                    "message" : "Not Authorized to UPDATE changes"
-                }
-            )
-        }
     } catch (error) {
         console.error(error)
         res.status(500).json(

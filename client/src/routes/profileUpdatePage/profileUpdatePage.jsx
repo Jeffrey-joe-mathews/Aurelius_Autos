@@ -9,7 +9,7 @@ function ProfileUpdatePage() {
     const {currentUser, updateUser} = useContext(AuthContext);
     const [error, setError] = useState(null);
 
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
   const handleSubmit = async(event) => {
     event.preventDefault()
@@ -23,6 +23,8 @@ function ProfileUpdatePage() {
         password : password
       })
       updateUser(res.data);
+      console.log(res.data);
+      navigate('/profile')
     } 
     catch (error) {
       console.error(error)
