@@ -24,3 +24,8 @@ model User {
   createdAt DateTime @default(now())
 }
 
+model Post {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  title String @unique
+  
+}
