@@ -42,6 +42,7 @@ model PostDetail {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   desc String
   make String
+  model String
   color String?
   utilities String?
   condition String?
