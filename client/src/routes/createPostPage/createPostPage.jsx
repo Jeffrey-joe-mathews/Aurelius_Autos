@@ -11,43 +11,12 @@ function CreatePostPage() {
 
   const navigate = useNavigate()
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    const inputs = Object.fromEntries(formData);
-
-
-    try {
-      const res = await apiRequest.post("/posts", {
-        postData: {
-          title: inputs.title,
-          price: parseInt(inputs.price),
-          address: inputs.address,
-          city: inputs.city,
-          mileage: parseInt(inputs.mileage),
-          year: parseInt(inputs.year),
-          type: inputs.type,
-          carType: inputs.carType,
-          latitude: inputs.latitude,
-          longitude: inputs.longitude,
-          images: images,
-        },
-        postDetail: {
-          desc: value,
-          utilities: inputs.utilities,
-          transmission: inputs.transmission,
-          make: inputs.make,
-          model: parseInt(inputs.model),
-          color: parseInt(inputs.color),
-          condition: parseInt(inputs.condition),
-          passengers: parseInt(inputs.passengers),
-        },
-      });
-      navigate("/"+res.data.id)
-    } catch (err) {
-      console.log(err);
-      setError(error);
-    }
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+    
+    const formData = new FormData(event.target)
+    const inputs = Object.fromEntries(formData)
+    console.log(inputs)
   };
 
   return (
