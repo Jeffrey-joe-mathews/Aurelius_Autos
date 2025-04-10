@@ -47,15 +47,18 @@ export const addPost = async (req, res) => {
         const body = req.body
         const user_id = req.userId
 
-        const newPost = await prisma.post.create({
+        const userPost = await prisma.post.create({
             data : {
-                ...body,
+                ...body.postData,
                 userID : user_id,
+                postDetail: {
+                    create: body.postDetail
+                }
             }
         })
         res.status(200).json(
             {
-                newPost
+                userPost
             }
         )
     } catch (error) {
