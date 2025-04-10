@@ -44,7 +44,7 @@ model PostDetail {
   make String
   model String
   color String?
-  utilities String?
+  insured Insured
   condition String?
   year Int
   passengers Int
@@ -80,4 +80,8 @@ enum Transmission {
   automatic
   continuousVariable
   dualClutch
+}
+enum Insured{
+  yes
+  no
 }

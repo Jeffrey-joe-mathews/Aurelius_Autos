@@ -16,6 +16,7 @@ function CreatePostPage() {
     const formData = new FormData(e.target);
     const inputs = Object.fromEntries(formData);
 
+
     try {
       const res = await apiRequest.post("/posts", {
         postData: {
@@ -23,10 +24,10 @@ function CreatePostPage() {
           price: parseInt(inputs.price),
           address: inputs.address,
           city: inputs.city,
-          bedroom: parseInt(inputs.bedroom),
-          bathroom: parseInt(inputs.bathroom),
+          mileage: parseInt(inputs.mileage),
+          year: parseInt(inputs.year),
           type: inputs.type,
-          property: inputs.property,
+          carType: inputs.carType,
           latitude: inputs.latitude,
           longitude: inputs.longitude,
           images: images,
@@ -69,18 +70,19 @@ function CreatePostPage() {
             </div>
             <div className="item description">
               <label htmlFor="desc">Description</label>
+              <textarea name="desc" id="desc" value={value} onChange={(e) => setValue(e.target.value)} rows={10} ></textarea>
             </div>
             <div className="item">
               <label htmlFor="city">City</label>
               <input id="city" name="city" type="text" />
             </div>
             <div className="item">
-              <label htmlFor="bedroom">Bedroom Number</label>
-              <input min={1} id="bedroom" name="bedroom" type="number" />
+              <label htmlFor="mileage">Mileage</label>
+              <input min={1} id="mileage" name="mileage" type="number" />
             </div>
             <div className="item">
-              <label htmlFor="bathroom">Bathroom Number</label>
-              <input min={1} id="bathroom" name="bathroom" type="number" />
+              <label htmlFor="year">Year</label>
+              <input min={1} id="year" name="year" type="number" />
             </div>
             <div className="item">
               <label htmlFor="latitude">Latitude</label>
@@ -100,21 +102,32 @@ function CreatePostPage() {
               </select>
             </div>
             <div className="item">
-              <label htmlFor="type">Property</label>
-              <select name="property">
-                <option value="apartment">Apartment</option>
-                <option value="house">House</option>
-                <option value="condo">Condo</option>
-                <option value="land">Land</option>
+              <label htmlFor="type">Car Type</label>
+              <select name="carType">
+                <option value="sedan">Sedan</option>
+                <option value="hatchback">Hatchback</option>
+                <option value="suv">SUV</option>
+                <option value="crossover">Crossover</option>
+                <option value="coupe">Coupe</option>
+                <option value="convertible">Convertible</option>
+                <option value="sportsCar">Sports Car</option>
+                <option value="stationWagon">Station Wagon</option>
+                <option value="minivan">Minivan</option>
+                <option value="pickupTruck">Pickup Truck</option>
+                <option value="electric">Electric</option>
+                <option value="hybrid">Hybrid</option>
+                <option value="luxury">Luxury</option>
+                <option value="offRoad">Off Road</option>
+                <option value="microcar">Microcar</option>
+                <option value="vintage">Vintage</option> 
               </select>
             </div>
 
             <div className="item">
-              <label htmlFor="utilities">Utilities Policy</label>
+              <label htmlFor="utilities">Insurance Coverage</label>
               <select name="utilities">
-                <option value="owner">Owner is responsible</option>
-                <option value="tenant">Tenant is responsible</option>
-                <option value="shared">Shared</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
               </select>
             </div>
             <div className="item">
