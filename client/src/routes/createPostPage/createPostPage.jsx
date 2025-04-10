@@ -35,12 +35,12 @@ function CreatePostPage() {
         postDetail: {
           desc: value,
           utilities: inputs.utilities,
-          pet: inputs.pet,
-          income: inputs.income,
-          size: parseInt(inputs.size),
-          school: parseInt(inputs.school),
-          bus: parseInt(inputs.bus),
-          restaurant: parseInt(inputs.restaurant),
+          transmission: inputs.transmission,
+          make: inputs.make,
+          model: parseInt(inputs.model),
+          color: parseInt(inputs.color),
+          condition: parseInt(inputs.condition),
+          passengers: parseInt(inputs.passengers),
         },
       });
       navigate("/"+res.data.id)
@@ -93,8 +93,8 @@ function CreatePostPage() {
               <input id="longitude" name="longitude" type="text" />
             </div>
             <div className="item">
-              <label htmlFor="type">Type</label>
-              <select name="type">
+              <label htmlFor="type">Service Type</label>
+              <select name="serviceType">
                 <option value="rent" defaultChecked>
                   Rent
                 </option>
@@ -131,36 +131,48 @@ function CreatePostPage() {
               </select>
             </div>
             <div className="item">
-              <label htmlFor="pet">Pet Policy</label>
-              <select name="pet">
-                <option value="allowed">Allowed</option>
-                <option value="not-allowed">Not Allowed</option>
+              <label htmlFor="transmission">Transmission</label>
+              <select name="transmission">
+                <option value="manual">Manual</option>
+                <option value="automatic">Automatic</option>
+                <option value="continuousVariable">Continuous Variable</option>
+                <option value="dualClutch">Dual Clutch</option>
               </select>
             </div>
             <div className="item">
-              <label htmlFor="income">Income Policy</label>
+              <label htmlFor="make">Make (Brand)</label>
               <input
-                id="income"
-                name="income"
+                id="make"
+                name="make"
                 type="text"
-                placeholder="Income Policy"
+                placeholder="make Policy"
               />
             </div>
             <div className="item">
-              <label htmlFor="size">Total Size (sqft)</label>
-              <input min={0} id="size" name="size" type="number" />
+              <label htmlFor="model">Model</label>
+              <input min={0} id="model" name="model" type="text" />
             </div>
             <div className="item">
-              <label htmlFor="school">School</label>
-              <input min={0} id="school" name="school" type="number" />
+              <label htmlFor="color">Color</label>
+              <input min={0} id="color" name="color" type="text" />
             </div>
             <div className="item">
-              <label htmlFor="bus">bus</label>
-              <input min={0} id="bus" name="bus" type="number" />
+              <label htmlFor="condition">Condition</label>
+              <select name="condition">
+                <option value="mint">Mint Condition</option>
+                <option value="excellent">Excellent Condition</option>
+                <option value="very-good">Very Good Condition</option>
+                <option value="good">Good Condition</option>
+                <option value="fair">Fair Condition</option>
+                <option value="poor">Poor Condition</option>
+                <option value="restored">Restored</option>
+                <option value="project">Project Car</option>
+                <option value="as-is">As-Is</option>
+              </select>
             </div>
             <div className="item">
-              <label htmlFor="restaurant">Restaurant</label>
-              <input min={0} id="restaurant" name="restaurant" type="number" />
+              <label htmlFor="passengers">Passengers</label>
+              <input min={0} id="passengers" name="passengers" type="number" />
             </div>
             <button className="sendButton">Add</button>
             {error && <span>error</span>}
