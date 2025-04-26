@@ -17,6 +17,39 @@ function CreatePostPage() {
     const formData = new FormData(event.target)
     const inputs = Object.fromEntries(formData)
     console.log(inputs)
+
+    try {
+      const res = await apiRequest.post("/posts", {
+        postData : {
+          title: inputs.title,
+          price: parseInt(inputs.price),
+          images: images ,
+          address: inputs.address,
+          city: inputs.city,
+          transmission: inputs.transmission,
+          mileage: parseFloat(inputs.mileage),
+          latitude: inputs.latitude,
+          longitude: inputs.longitude,
+          carType: inputs.carType,
+          serviceType: inputs.serviceType
+        },
+        postDetail : {
+          desc: value,
+          make: inputs.make,
+          model: inputs.model,
+          color: inputs.color,
+          insured: inputs.insured,
+          condition: inputs.insured,
+          year: parseInt(inputs.year),
+          passengers: parseInt(inputs.passengers)
+        }
+      })
+    }
+    catch (err){
+      console.error(err);
+      setError(err)
+    }
+
   };
 
   return (
@@ -152,14 +185,14 @@ function CreatePostPage() {
         {images.map((image, index) => (
           <img src={image} key={index} alt="" />
         ))}
-        <UploadWidget
+         <UploadWidget
           uwConfig={{
+            cloudName: "dtcluwm94",
+            uploadPreset: "aurelius",
             multiple: true,
-            cloudName: "lamadev",
-            uploadPreset: "estate",
-            folder: "posts",
-          }}
-          setState={setImages}
+            folder: "avatarsAurelius",
+          }} 
+          setState ={setImages}
         />
       </div>
     </div>
