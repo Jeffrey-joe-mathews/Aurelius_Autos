@@ -43,7 +43,10 @@ function CreatePostPage() {
           year: parseInt(inputs.year),
           passengers: parseInt(inputs.passengers)
         }
-      })
+      });
+      // console.log(res.data)
+      // console.log(res.data.userPost.id)
+      navigate("/list/"+res.data.userPost.id)
     }
     catch (err){
       console.error(err);
@@ -126,8 +129,8 @@ function CreatePostPage() {
             </div>
 
             <div className="item">
-              <label htmlFor="utilities">Insurance Coverage</label>
-              <select name="utilities">
+              <label htmlFor="insured">Insurance Coverage</label>
+              <select name="insured">
                 <option value="yes">Yes</option>
                 <option value="no">No</option>
               </select>

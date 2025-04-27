@@ -9,6 +9,7 @@ import Register from './routes/register/registerPage'
 import Login from './routes/login/login'
 import ProfileUpdatePage from './routes/profileUpdatePage/profileUpdatePage'
 import CreatePostPage from './routes/createPostPage/createPostPage'
+import { listPageLoader, singlePageLoader } from './lib/loaders'
 
 const App = () => {
   const router = createBrowserRouter([
@@ -22,11 +23,13 @@ const App = () => {
         },
         {
           path: "/list",
-          element: <ListPage />
+          element: <ListPage />,
+          loader: listPageLoader
         },
         {
           path: "/list/:id",
-          element: <SinglePage />
+          element: <SinglePage />,
+          loader: singlePageLoader
         },
         {
           path: "/register",
