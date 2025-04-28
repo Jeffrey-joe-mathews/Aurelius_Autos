@@ -75,13 +75,13 @@ enum ServiceType {
   rent
   buy
 }
+enum Insured{
+  yes
+  no
+}
 enum Transmission {
   manual
   automatic
   continuousVariable
   dualClutch
-}
-enum Insured{
-  yes
-  no
 }

@@ -1,9 +1,26 @@
 import prisma from "../lib/prisma.js";
 
 export const getPosts = async (req, res) => {
+    const query = req.query;
+    console.log(query);
+    const capitalize = str =>
+        str ? str.charAt(0).toUpperCase() + str.slice(1).toLowerCase() : '';
+
+
     try {
 
-        const posts = await prisma.post.findMany() 
+        const posts = await prisma.post.findMany({
+            where:{
+                city: query.city ? capitalize(query.city) : undefined,
+                serviceType: query.type || undefined,
+                transmission: query.transmission || undefined,
+                carType: query.carType ||undefined,
+                price:{
+                    gte: parseInt(query.minPrice)||0,
+                    lte: parseInt(query.maxPrice)||99999999,
+                }
+            }
+        }) 
         res.status(200).json(
             {
                 posts
@@ -118,6 +135,7 @@ export const deletePost = async (req, res) => {
                 }
             )
         }
+
         const deletedPost = await prisma.post.delete({
             where: {id:id}
         })
