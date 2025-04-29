@@ -2,11 +2,9 @@ import { useLoaderData } from "react-router-dom";
 import Card from "../../components/card/Card.jsx";
 import Filter from "../../components/filter/Filter.jsx";
 import Map from "../../components/map/Map.jsx";
-import { listData } from "../../lib/dummyData.js"
 import './listPage.scss'
 
 const ListPage = () => {
-  const data = listData;
   const posts = useLoaderData()
   console.log(posts.posts)
   return (

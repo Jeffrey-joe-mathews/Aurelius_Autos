@@ -1,12 +1,31 @@
 import ImgSlider from '../../components/imgSlider/ImgSlider'
 import './singlePage.scss'
-import { singlePostData, userData } from '../../lib/dummyData.js'
 import Map from '../../components/map/Map.jsx'
-import { useLoaderData } from 'react-router-dom'
+import { useLoaderData, useNavigate } from 'react-router-dom'
+import { useContext, useState } from 'react'
+import { AuthContext } from '../../context/AuthContext.jsx'
+import apiRequest from '../../lib/apiRequest.js'
 
 const SinglePage = () => {
+  const navigate = useNavigate()
   const singlePostData = useLoaderData();
+  const {currentUser} = useContext(AuthContext)
+  const [saved, setSaved] = useState(singlePostData.isSaved)
   console.log(singlePostData)
+  const saveEvent = async() => {
+    setSaved((prev) => !prev)
+    if(!currentUser) {
+      navigate('/')
+    }
+    try {
+      await apiRequest.post("/users/save", {
+        postId:singlePostData.post.id
+      })
+    }
+    catch (error) {
+      console.error(error)
+    }
+  }
   return (
     <div className='singlePage'>
       <div  className="details">
@@ -105,9 +124,11 @@ const SinglePage = () => {
               <img src="/chat.png" alt="" />
               send a message
             </button>
-            <button>
+            <button onClick={saveEvent} style={{
+              backgroundColor:saved?"#fece51":"white"
+            }}>
               <img src="/save.png" alt="" />
-              save the dealer
+              {saved?"Car Saved":"Save the Car"}
             </button>
           </div>
         </div>
