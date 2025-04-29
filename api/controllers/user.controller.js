@@ -143,12 +143,16 @@ export const savePost = async(req, res) => {
 
         else {
             await prisma.savedPost.create({
-                data:{
-                    userID:tokenUserId,
-                    postId:postId
+                // data:{
+                //     userID:tokenUserId,
+                //     postId:postId
+                // }
+                data: {
+                    user: { connect: { id: tokenUserId } },
+                    post: { connect: { id: postId } }
                 }
             })
-            res.status(200).json({successs:true, message:"Post added to the user saved list"})
+            res.status(200).json({success:true, message:"Post added to the user saved list"})
         }
     }
     catch(err) {

@@ -58,12 +58,12 @@ export const getPost = async (req, res) => {
             }
         })
         let userID
-        const token = req.cookie.token;
+        const token = req.cookies.token;
         if(!token) {
             userID = null;
         }
         else {
-            jwt.verify(token, process.env.SECRET_KEY, async(err, payload) => {
+            jwt.verify(token, process.env.JWT_SECRET_KEY, async(err, payload) => {
                 if(err) {
                     userID = null;
                 }
@@ -73,9 +73,18 @@ export const getPost = async (req, res) => {
             })
         }
 
+        const saved = await prisma.savedPost.findUnique({
+            where: {
+                userId_postId:{
+                    userId: userID,
+                    postId:id
+                }
+            }
+        })
+
         res.status(200).json(
             {
-                post
+                post, isSaved:saved?true:false
             }
         )
     } catch (error) {
