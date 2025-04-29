@@ -1,4 +1,8 @@
 import prisma from "../lib/prisma.js";
+import jwt from 'jsonwebtoken'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 export const getPosts = async (req, res) => {
     const query = req.query;
@@ -53,6 +57,22 @@ export const getPost = async (req, res) => {
                 }
             }
         })
+        let userID
+        const token = req.cookie.token;
+        if(!token) {
+            userID = null;
+        }
+        else {
+            jwt.verify(token, process.env.SECRET_KEY, async(err, payload) => {
+                if(err) {
+                    userID = null;
+                }
+                else {
+                    userID = payload.id;
+                }
+            })
+        }
+
         res.status(200).json(
             {
                 post
