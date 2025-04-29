@@ -160,3 +160,34 @@ export const savePost = async(req, res) => {
         res.status(500).json({success:false, message:"Internal server error"})
     }
 }
+export const profilePosts = async(req, res) => {
+    const id  = req.params.userId;
+    try{
+        const userPosts = await prisma.post.findMany({
+            where:{
+                userID:id,
+            }
+        })
+        const saved = await prisma.savedPost.findMany({
+            where:{
+                userId: id,
+                include: {
+                    post: true
+                }
+            }
+        })
+        const savedPosts = saved.map(item=>item.postId)
+        res.status(200).json({
+            userPosts, savedPosts
+        })
+    }
+    catch(error) {
+        console.error(error);
+        res.status(500).json(
+            {
+                "success": false,
+                "message": "Failed to get profile posts"
+            }
+        )
+    }
+}
