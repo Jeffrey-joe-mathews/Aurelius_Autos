@@ -119,3 +119,40 @@ export const deleteUser = async (req, res) => {
         )
     }
 }
+export const savePost = async(req, res) => {
+    const postId = req.body.postId;
+    const tokenUserId = req.userId;
+
+    try {
+        const savedPost = await prisma.savedPost.findUnique({
+            where:{
+                userId_postId:{
+                    userId:tokenUserId,
+                    postId:postId
+                }
+            }
+        })
+        if (savedPost) {
+            await prisma.savedPost.delete({
+                where:{
+                    id:savedPost.id,
+                }, 
+            });
+            res.status(200).json({success:true, message:"Post removed from save list"});
+        }
+
+        else {
+            await prisma.savedPost.create({
+                data:{
+                    userID:tokenUserId,
+                    postId:postId
+                }
+            })
+            res.status(200).json({successs:true, message:"Post added to the user saved list"})
+        }
+    }
+    catch(err) {
+        console.error(err)
+        res.status(500).json({success:false, message:"Internal server error"})
+    }
+}
