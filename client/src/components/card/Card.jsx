@@ -1,10 +1,15 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import './Card.scss'
 
+
 const Card = ({item}) => {
+  const naviagate = useNavigate()
   console.log(item)
+  const handleClick = () => {
+    naviagate(`/list/${item.id}`)
+  }
   return (
-    <div className='card'>
+    <div className='card' onClick={handleClick}>
       <Link to={`/list/${item.id}`} className="imageContainer" >
         <img src={item.images[0]} alt={item.title} />
       </Link>
@@ -14,18 +19,18 @@ const Card = ({item}) => {
         </h2>
         <p className='address' >
           <img src="/pin.png" alt="address" />
-          <span>{item.address}</span>
+          <span>{item.city}</span>
         </p>
         <p className='price' >$ {item.price}</p>
         <div className="bottom">
           <div className="features">
             <div className="feature">
-              <img src="/bed.png" alt="" />
-              <span>{item.bedroom} bedroom </span>
+              <img src="/serviceType.svg" alt="" />
+              <span>{item.serviceType==="buy"?"For Sale":"Rental Service"}</span>
             </div>
             <div className="feature">
-              <img src="/bath.png" alt="" />
-              <span>{item.bathroom} bathroom </span>
+              <img src="/mileage.svg" alt="" />
+              <span>{item.mileage} Km/L </span>
             </div>
           </div>
           <div className="icons">
