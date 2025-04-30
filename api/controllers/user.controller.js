@@ -171,12 +171,12 @@ export const profilePosts = async(req, res) => {
         const saved = await prisma.savedPost.findMany({
             where:{
                 userId: id,
-                include: {
-                    post: true
-                }
+            },
+            include: {
+                post: true
             }
         })
-        const savedPosts = saved.map(item=>item.postId)
+        const savedPosts = saved.map(item=>item.post)
         res.status(200).json({
             userPosts, savedPosts
         })
