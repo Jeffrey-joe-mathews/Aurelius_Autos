@@ -80,8 +80,8 @@ model Message {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   text String
   userId String
-  chatIds String[] @db.ObjectId
-  chat Chat @relation(fields: [chatIds], references: [id])
+  chatId String @db.ObjectId
+  chat Chat @relation(fields: [chatId], references: [id])
   createdAt DateTime @default(now())
 }
 
