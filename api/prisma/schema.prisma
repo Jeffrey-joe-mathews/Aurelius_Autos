@@ -18,6 +18,8 @@ model User {
   createdAt DateTime @default(now())
   posts Post[]
   savedPosts SavedPost[]
+  chatIDs String[] @db.ObjectId
+  chats Chat[] @relation(fields: [chatIDs], references: [id])
 }
 
 model Post {
@@ -61,8 +63,26 @@ model SavedPost {
   userId String @db.ObjectId @unique
   postId String @db.ObjectId @unique
   createdAt DateTime @default(now())
-
   @@unique([userId, postId])
+}
+
+model Chat {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  userIDs String[] @db.ObjectId
+  users User[] @relation(fields: [userIDs], references: [id])
+  seenBy String[] @db.ObjectId
+  createdAt DateTime @default(now())
+  messages Message[]
+  lastMessage String?
+}
+
+model Message {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  text String
+  userId String
+  chatIds String[] @db.ObjectId
+  chat Chat @relation(fields: [chatIds], references: [id])
+  createdAt DateTime @default(now())
 }
 
 enum CarType {
