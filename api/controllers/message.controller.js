@@ -1,6 +1,6 @@
 import prisma from "../lib/prisma.js"
 
-export const getMessages  = async (req, res) => {
+export const addMessage  = async (req, res) => {
     try {
         const tokenUserId = req.userId
         const messages = await prisma.message.findMany({
