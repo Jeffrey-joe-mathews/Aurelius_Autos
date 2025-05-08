@@ -18,7 +18,8 @@
     "react-router-dom": "^7.4.1",
     "sass": "^1.86.0",
     "slate": "^0.112.0",
-    "slate-react": "^0.112.1"
+    "slate-react": "^0.112.1",
+    "timeago.js": "^4.0.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",

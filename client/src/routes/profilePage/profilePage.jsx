@@ -3,11 +3,11 @@ import List from '../../components/list/List'
 import './profilePage.scss'
 import apiRequest from '../../lib/apiRequest'
 import { Link, useLoaderData, useNavigate } from 'react-router-dom'
-import { useContext, useEffect } from 'react'
+import { useContext } from 'react'
 import { AuthContext } from '../../context/AuthContext'
 
 const ProfilePage = () => {
-    const data = useLoaderData()
+    const {data, chat} = useLoaderData()
     console.log(data)
     const { updateUser, currentUser } = useContext(AuthContext)
     
@@ -57,7 +57,7 @@ const ProfilePage = () => {
         </div>
         <div className="chatContainer">
             <div className="wrapper">
-                <Chat />
+                <Chat chats={chat.data} />
             </div>
         </div>
     </div>
