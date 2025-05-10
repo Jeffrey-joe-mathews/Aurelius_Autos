@@ -19,6 +19,7 @@
     "sass": "^1.86.0",
     "slate": "^0.112.0",
     "slate-react": "^0.112.1",
+    "socket.io-client": "^4.8.1",
     "timeago.js": "^4.0.2"
   },
   "devDependencies": {
