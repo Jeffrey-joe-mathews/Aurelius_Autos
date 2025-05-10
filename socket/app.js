@@ -8,10 +8,25 @@ const io = new Server({
     }
 });
 
+let onlineUser = []
+
+const addUser = (userId, socketId) => {
+    const userExists = onlineUser.find(user => user.userId === userId);
+    if(!userExists) {
+        onlineUser.push({userId, socketId})
+    }
+}
+
+const removeUser = (socketId) => {
+    onlineUser = onlineUser.filter(user => user.socketId!==socketId)
+}
+
 io.on("connection", (socket) => {
-    console.log(socket.id);
-    socket.on("test", (data) => {
-        console.log(data)
+    socket.on("newUser", (userId) => {
+        addUser(userId, socket.id)
+    })
+    socket.on("disconnect", () => {
+        removeUser(socket.id)
     })
 })
 

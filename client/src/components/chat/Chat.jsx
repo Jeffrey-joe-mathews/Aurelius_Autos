@@ -37,6 +37,7 @@ const Chat = ({chats}) => {
     }
 
     const testSocket = () => {
+        console.log(socket)
         socket.emit("test", "Hello from the other side!!!")
     }
 

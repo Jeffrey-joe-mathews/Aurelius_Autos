@@ -8,10 +8,10 @@ export const SocketContextProvider = ({children}) => {
 
     useEffect(() => {
         setSocket(io("http://localhost:4000"))
-    }, [])
+    }, []);
 
     return (
-        <SocketContext.Provider value={socket}>
+        <SocketContext.Provider value={{socket}}>
             {children}
         </SocketContext.Provider>
     );
