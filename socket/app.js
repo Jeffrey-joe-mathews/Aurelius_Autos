@@ -11,18 +11,18 @@ const io = new Server({
 let onlineUser = []
 
 const addUser = (userId, socketId) => {
-    const userExists = onlineUser.find(user => user.userId === userId);
+    const userExists = onlineUser.find((user) => user.userId === userId);
     if(!userExists) {
         onlineUser.push({userId, socketId})
     }
 }
 
 const removeUser = (socketId) => {
-    onlineUser = onlineUser.filter(user => user.socketId!==socketId)
+    onlineUser = onlineUser.filter((user) => user.socketId!==socketId)
 }
 
 const getUser = (userId) => {
-    return onlineUser.find(user => user.userId === userId)
+    return onlineUser.find((user) => user.userId === userId)
 }
 
 io.on("connection", (socket) => {
@@ -31,10 +31,11 @@ io.on("connection", (socket) => {
     })
 
     socket.on("sendMessage", ({recieverId, data}) => {
+        console.log(onlineUser)
         const reciever = getUser(recieverId)
+        console.log("data"+data)
+        console.log("reciever"+ reciever)
         io.to(reciever.socketId).emit("getMessage", data)
-        console.log(recieverId)
-        console.log(data)
     })
 
     socket.on("disconnect", () => {

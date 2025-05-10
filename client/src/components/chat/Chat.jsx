@@ -50,8 +50,8 @@ const Chat = ({chats}) => {
         };
         if(chat && socket) {
             socket.on("getMessage", (data) => {
-                if(chat.id === socket.chatId) {
-                    setChat(prev =>({...prev, messages:[...prev.messages, res.data.data]}))
+                if(chat.id === data.chatId) {
+                    setChat(prev =>({...prev, messages:[...prev.messages, data]}))
                     read();
                 }
             })
@@ -66,19 +66,19 @@ const Chat = ({chats}) => {
         <div className="messages">
             <h1>Messages</h1>
             {
-                chats.map(chat=>(
-                    <div className='message' key={chat.id} 
+                chats.map(c=>(
+                    <div className='message' key={c.id} 
                         style={
                             {
-                                backgroundColor: chat.seenBy.includes(currentUser.userInfo.id) || chat?.id === chat.id ? "white" : "#fece51"
+                                backgroundColor: c.seenBy.includes(currentUser.userInfo.id) || chat?.id === c.id ? "white" : "#fece51"
                             }
                         }
-                        onClick={()=>handleChat(chat.id, chat.reciever)}
+                        onClick={()=>handleChat(c.id, c.reciever)}
                     >
-                        <img src={chat.reciever.avatar||null} alt="" />
-                        <span>{chat.reciever.username}</span>
+                        <img src={c.reciever.avatar||null} alt="" />
+                        <span>{c.reciever.username}</span>
                         <p>
-                            {chat.lastMessage}
+                            {c.lastMessage}
                         </p>
                     </div>
                 ))
