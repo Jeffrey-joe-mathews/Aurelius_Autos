@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import './chat.scss'
 import { AuthContext } from '../../context/AuthContext';
 import apiRequest from '../../lib/apiRequest';
@@ -29,6 +29,10 @@ const Chat = ({chats}) => {
             const res = await apiRequest.post("/messages/"+chat.id, {text:text})
             console.log(res)
             setChat(prev =>({...prev, messages:[...prev.messages, res.data.data]}))
+            socket.emit("sendMessage", {
+                recieverId: chat.reciever.id,
+                data: res.data.data
+            })
             event.target.reset();
         }
         catch (err) {
@@ -36,14 +40,29 @@ const Chat = ({chats}) => {
         }
     }
 
-    const testSocket = () => {
-        console.log(socket)
-        socket.emit("test", "Hello from the other side!!!")
-    }
+    useEffect(() =>{
+        const read = async () => {
+            try {
+                await apiRequest.put("/chats/read/" + chat.id);
+            } catch (err) {
+                console.log(err);
+            }
+        };
+        if(chat && socket) {
+            socket.on("getMessage", (data) => {
+                if(chat.id === socket.chatId) {
+                    setChat(prev =>({...prev, messages:[...prev.messages, res.data.data]}))
+                    read();
+                }
+            })
+        }
+        return () => {
+            socket.off("getMessage")
+        }
+    }, [socket, chat])
 
   return (
     <div className='chat'>
-        <button onClick={testSocket} >testing</button>
         <div className="messages">
             <h1>Messages</h1>
             {
@@ -51,7 +70,7 @@ const Chat = ({chats}) => {
                     <div className='message' key={chat.id} 
                         style={
                             {
-                                backgroundColor: chat.seenBy.includes(currentUser.userInfo.id) ? "white" : "#fece51"
+                                backgroundColor: chat.seenBy.includes(currentUser.userInfo.id) || chat?.id === chat.id ? "white" : "#fece51"
                             }
                         }
                         onClick={()=>handleChat(chat.id, chat.reciever)}
