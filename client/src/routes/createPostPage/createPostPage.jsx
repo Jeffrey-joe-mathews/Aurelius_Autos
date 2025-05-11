@@ -3,13 +3,27 @@ import "./createPostPage.scss";
 import apiRequest from "../../lib/apiRequest";
 import UploadWidget from "../../components/uploadWidget/UploadWidget";
 import { useNavigate } from "react-router-dom";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
 
 function CreatePostPage() {
   const [value, setValue] = useState("");
   const [images, setImages] = useState([]);
   const [error, setError] = useState("");
+  const [selectedDates, setSelectedDates] = useState([]);
 
   const navigate = useNavigate()
+
+  const toggleDate = (date) => {
+    const isoDate = date.toISOString().split("T")[0]; // Only keep YYYY-MM-DD
+    const exists = selectedDates.some(d => d.toISOString().split("T")[0] === isoDate);
+    if (exists) {
+      setSelectedDates(prev => prev.filter(d => d.toISOString().split("T")[0] !== isoDate));
+    } else {
+      setSelectedDates(prev => [...prev, date]);
+    }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -31,7 +45,8 @@ function CreatePostPage() {
           latitude: inputs.latitude,
           longitude: inputs.longitude,
           carType: inputs.carType,
-          serviceType: inputs.serviceType
+          serviceType: inputs.serviceType,
+          availableDates: selectedDates.map(d => new Date(d).toISOString())
         },
         postDetail : {
           desc: value,
@@ -180,6 +195,24 @@ function CreatePostPage() {
               <input min={0} id="passengers" name="passengers" type="number" />
             </div>
             <button className="sendButton">Add</button>
+            <div className="item" >
+              <label htmlFor="availableDates">Available Dates</label>
+              <DatePicker 
+                selected={null}  
+                onChange={toggleDate}
+                minDate={new Date()}
+                inline
+                highlightDates={selectedDates}
+                dayClassName={date =>
+                  selectedDates.some(d =>
+                    d.toISOString().split("T")[0] === date.toISOString().split("T")[0]
+                  )
+                    ? "selected-date"
+                    : undefined
+                }
+              />
+
+            </div>
             {error && <span>error</span>}
           </form>
         </div>

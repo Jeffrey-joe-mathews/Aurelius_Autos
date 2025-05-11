@@ -107,6 +107,7 @@ export const addPost = async (req, res) => {
             data : {
                 ...body.postData,
                 userID : user_id,
+                availableDates: body.postData.availableDates.map(date=> new Date(date)),
                 postDetail: {
                     create: body.postDetail
                 }
@@ -130,9 +131,31 @@ export const addPost = async (req, res) => {
 
 export const updatePost = async (req, res) => {
     try {
+        const body = req.body
+        const postId = req.params.id;
+        const updatedPost = await prisma.post.update({
+            where: {
+                id: postId
+            },
+            data: {
+                ...body.postData,
+                availableDates: body.postData.availableDates.map(date=>new Date(date)),
+            }
+        }) 
+        console.log(updatedPost)
+        if(body.postDetail) [
+            await prisma.postDetail.update({
+                where: {
+                    postID: postId
+                },
+                data: body.postDetail
+            })
+        ]
         res.status(200).json(
             {
-
+                "success":true,
+                "message": "post updated successfully",
+                "data": updatedPost
             }
         )
     } catch (error) {

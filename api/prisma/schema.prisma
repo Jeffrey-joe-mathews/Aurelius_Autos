@@ -10,79 +10,93 @@ datasource db {
 // after making any changes in the prisma schema run "npx prisma db push" 
 
 model User {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  email String @unique 
-  username String @unique
-  password String 
-  avatar String?
-  createdAt DateTime @default(now())
-  posts Post[]
+  id         String      @id @default(auto()) @map("_id") @db.ObjectId
+  email      String      @unique
+  username   String      @unique
+  password   String
+  avatar     String?
+  createdAt  DateTime    @default(now())
+  posts      Post[]
   savedPosts SavedPost[]
-  chatIDs String[] @db.ObjectId
-  chats Chat[] @relation(fields: [chatIDs], references: [id])
+  chatIDs    String[]    @db.ObjectId
+  chats      Chat[]      @relation(fields: [chatIDs], references: [id])
+  Booking    Booking[]
 }
 
 model Post {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  title String 
-  price Int
-  images String[]
-  address String
-  city String
-  transmission Transmission
-  mileage Float
-  latitude String
-  longitude String
-  carType CarType
-  serviceType ServiceType
-  createdAt DateTime @default(now())
-  user User @relation(fields: [userID], references: [id])
-  userID String @db.ObjectId
-  postDetail PostDetail?
-  savedPosts SavedPost[]
+  id             String       @id @default(auto()) @map("_id") @db.ObjectId
+  title          String
+  price          Int
+  images         String[]
+  address        String
+  city           String
+  transmission   Transmission
+  mileage        Float
+  latitude       String
+  longitude      String
+  carType        CarType
+  serviceType    ServiceType
+  availableDates DateTime[]
+  createdAt      DateTime     @default(now())
+  user           User         @relation(fields: [userID], references: [id])
+  userID         String       @db.ObjectId
+  postDetail     PostDetail?
+  savedPosts     SavedPost[]
+  bookings       Booking[]
 }
 
 model PostDetail {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  desc String
-  make String
-  model String
-  color String?
-  insured Insured
-  condition String?
-  year Int
+  id         String  @id @default(auto()) @map("_id") @db.ObjectId
+  desc       String
+  make       String
+  model      String
+  color      String?
+  insured    Insured
+  condition  String?
+  year       Int
   passengers Int
-  post Post @relation(fields: [postID], references: [id])
-  postID String @db.ObjectId @unique
+  post       Post    @relation(fields: [postID], references: [id])
+  postID     String  @unique @db.ObjectId
 }
 
 model SavedPost {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  user User @relation(fields: [userId], references: [id])
-  post Post @relation(fields: [postId], references: [id])
-  userId String @db.ObjectId @unique
-  postId String @db.ObjectId @unique
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  user      User     @relation(fields: [userId], references: [id])
+  post      Post     @relation(fields: [postId], references: [id])
+  userId    String   @unique @db.ObjectId
+  postId    String   @unique @db.ObjectId
   createdAt DateTime @default(now())
+
   @@unique([userId, postId])
 }
 
 model Chat {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  userIDs String[] @db.ObjectId
-  users User[] @relation(fields: [userIDs], references: [id])
-  seenBy String[] @db.ObjectId
-  createdAt DateTime @default(now())
-  messages Message[]
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  userIDs     String[]  @db.ObjectId
+  users       User[]    @relation(fields: [userIDs], references: [id])
+  seenBy      String[]  @db.ObjectId
+  createdAt   DateTime  @default(now())
+  messages    Message[]
   lastMessage String?
 }
 
 model Message {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  text String
-  userId String
-  chatId String @db.ObjectId
-  chat Chat @relation(fields: [chatId], references: [id])
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  text      String
+  userId    String
+  chatId    String   @db.ObjectId
+  chat      Chat     @relation(fields: [chatId], references: [id])
   createdAt DateTime @default(now())
+}
+
+model Booking {
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  userId      String     @db.ObjectId
+  user        User       @relation(fields: [userId], references: [id])
+  postId      String     @db.ObjectId
+  post        Post       @relation(fields: [postId], references: [id])
+  bookedDates DateTime[]
+  createdAt   DateTime   @default(now())
 }
 
 enum CarType {
@@ -103,14 +117,17 @@ enum CarType {
   microcar
   vintage
 }
+
 enum ServiceType {
   rent
   buy
 }
-enum Insured{
+
+enum Insured {
   yes
   no
 }
+
 enum Transmission {
   manual
   automatic
