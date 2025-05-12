@@ -1,0 +1,50 @@
+
+
+import prisma from "../lib/prisma.js";
+
+export const createBooking = async (req, res) => {
+  try {
+    const { postId, selectedDates } = req.body;
+    const userId = req.userId;
+
+    if (!postId || !selectedDates || !selectedDates.length) {
+      return res.status(400).json({ success: false, message: "Invalid booking data" });
+    }
+
+    const post = await prisma.post.findUnique({
+      where: { id: postId },
+      select: { availableDates: true },
+    });
+
+    if (!post) {
+      return res.status(404).json({ success: false, message: "Post not found" });
+    }
+
+    const selected = selectedDates.map(date => new Date(date));
+    const updatedDates = post.availableDates.filter(date =>
+      !selected.find(sel => new Date(sel).toISOString() === new Date(date).toISOString())
+    );
+
+    // Create booking
+    await prisma.booking.create({
+      data: {
+        userId,
+        postId,
+        bookedDates: selected,
+      },
+    });
+
+    // Update the post's available dates
+    await prisma.post.update({
+      where: { id: postId },
+      data: {
+        availableDates: updatedDates,
+      },
+    });
+
+    res.status(200).json({ success: true, message: "Booking confirmed" });
+  } catch (error) {
+    console.error("Booking Error:", error);
+    res.status(500).json({ success: false, message: "Booking failed" });
+  }
+};

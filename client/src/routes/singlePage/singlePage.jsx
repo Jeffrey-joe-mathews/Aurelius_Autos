@@ -5,12 +5,17 @@ import { useLoaderData, useNavigate } from 'react-router-dom'
 import { useContext, useState } from 'react'
 import { AuthContext } from '../../context/AuthContext.jsx'
 import apiRequest from '../../lib/apiRequest.js'
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { parseISO } from "date-fns";
+
 
 const SinglePage = () => {
   const navigate = useNavigate()
   const singlePostData = useLoaderData();
   const {currentUser} = useContext(AuthContext)
   const [saved, setSaved] = useState(singlePostData.isSaved)
+  const [selectedDates, setSelectedDates] = useState([])
   console.log(singlePostData)
   const saveEvent = async() => {
     setSaved((prev) => !prev)
@@ -47,6 +52,49 @@ const SinglePage = () => {
               </div>
             </div>
             <div className="bottom">{singlePostData.post.postDetail.desc}</div>
+<div className="booking">
+<div className="summary">
+  <p>Select Available Days:</p>
+  <DatePicker
+    selected={null}
+    onChange={(date) => {
+      const dateStr = date.toISOString().split("T")[0];
+      const alreadySelected = selectedDates.find(d =>
+        d.toISOString().split("T")[0] === dateStr
+      );
+      if (alreadySelected) {
+        setSelectedDates(prev => prev.filter(d =>
+          d.toISOString().split("T")[0] !== dateStr
+        ));
+      } else {
+        setSelectedDates(prev => [...prev, date]);
+      }
+    }}
+    minDate={new Date()}
+    highlightDates={selectedDates}
+    includeDates={singlePostData.post.availableDates.map(d => parseISO(d))}
+    inline
+  />
+    <p>Selected Days: {selectedDates.length}</p>
+    <p>Total Price: ${selectedDates.length * singlePostData.post.price}</p>
+  </div>
+    <button
+      className="bookButton"
+      onClick={() => {
+        navigate("/payment", {
+          state: {
+            postId: singlePostData.post.id,
+            selectedDates,
+            total: selectedDates.length * singlePostData.post.price
+          }
+        });
+      }}
+      disabled={selectedDates.length === 0}
+    >
+      Proceed to Payment
+    </button>
+</div>
+
           </div>
         </div>
       </div>

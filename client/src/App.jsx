@@ -10,6 +10,7 @@ import Login from './routes/login/login'
 import ProfileUpdatePage from './routes/profileUpdatePage/profileUpdatePage'
 import CreatePostPage from './routes/createPostPage/createPostPage'
 import { listPageLoader, profilePageLoader, singlePageLoader } from './lib/loaders'
+import PaymentPage from './routes/paymentPage/paymentPage'
 
 const App = () => {
   const router = createBrowserRouter([
@@ -57,6 +58,10 @@ const App = () => {
         {
           path: "/create",
           element: <CreatePostPage />
+        },
+        {
+          path: "/payment",
+          element: <PaymentPage />
         }
       ]
     }

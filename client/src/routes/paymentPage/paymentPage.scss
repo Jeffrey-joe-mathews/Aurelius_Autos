@@ -1,0 +1,52 @@
+.paymentPage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    background: #f8f9fa;
+  
+    .card {
+      background: white;
+      padding: 2rem 3rem;
+      border-radius: 10px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+  
+      h2 {
+        margin-bottom: 1rem;
+        color: #333;
+      }
+  
+      p {
+        margin: 0.5rem 0;
+        font-size: 16px;
+      }
+  
+      button {
+        margin-top: 1.5rem;
+        padding: 10px 20px;
+        background-color: #0f9d58; // Google Pay green
+        color: white;
+        font-size: 16px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: 0.2s ease-in;
+  
+        &:hover {
+          background-color: #0c7d47;
+        }
+      }
+  
+      .success {
+        color: #0f9d58;
+        font-weight: bold;
+        margin-top: 20px;
+      }
+    }
+  }
+  

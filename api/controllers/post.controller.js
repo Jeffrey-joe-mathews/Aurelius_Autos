@@ -13,18 +13,26 @@ export const getPosts = async (req, res) => {
 
     try {
 
-        const posts = await prisma.post.findMany({
-            where:{
-                city: query.city ? capitalize(query.city) : undefined,
-                serviceType: query.type || undefined,
-                transmission: query.transmission || undefined,
-                carType: query.carType ||undefined,
-                price:{
-                    gte: parseInt(query.minPrice)||0,
-                    lte: parseInt(query.maxPrice)||99999999,
-                }
-            }
-        }) 
+        const filters = {
+      city: query.city ? capitalize(query.city) : undefined,
+      transmission: query.transmission || undefined,
+      carType: query.carType || undefined,
+      price: {
+        gte: parseInt(query.minPrice) || 0,
+        lte: parseInt(query.maxPrice) || 99999999,
+      },
+    };
+
+    if (query.date) {
+      const selectedDate = new Date(query.date);
+      filters.availableDates = {
+        has: selectedDate,
+      };
+    }
+
+    const posts = await prisma.post.findMany({
+      where: filters,
+    });
         res.status(200).json(
             {
                 posts

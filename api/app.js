@@ -8,6 +8,7 @@ import userRoutes from './routes/user.route.js'
 import postRoutes from './routes/post.route.js'
 import messageRoutes from './routes/message.route.js'
 import chatRoutes from './routes/chat.route.js'
+import bookingRoutes from './routes/booking.route.js'
 
 dotenv.config()
 const app = express()
@@ -22,6 +23,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/posts', postRoutes);
 app.use('/api/chats', chatRoutes);
 app.use('/api/messages', messageRoutes);
+app.use('/api/booking', bookingRoutes);
 
 app.listen(9876, () => {
     console.log("The api is running on port 9876");

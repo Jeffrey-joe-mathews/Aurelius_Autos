@@ -84,6 +84,38 @@
                     margin-top: 50px;
                     color: grey;
                     line-height: 22px;
+                    margin-bottom: 50px;
+                }
+
+                .booking {
+
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: space-between;
+
+                    .summary {
+                        p {
+                            font-size: 20px;
+                            color: rgb(112, 109, 109);
+                            margin-bottom: 10px;
+                        }
+                    }
+
+                    .bookButton {
+                        width: 200px;
+                        height: 65px;
+                        color: rgb(0, 0, 0);
+                        background-color: #fece51;
+                        border: none;
+                        margin-left: auto;
+                        margin-right: auto;
+                        border-radius: 12px;
+                        font-weight: bold;
+                        font-size: 20;
+                        padding: 10x 20px;
+                    }
+
                 }
             }
         }
