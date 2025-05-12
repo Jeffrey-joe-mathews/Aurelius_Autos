@@ -179,41 +179,47 @@ export const updatePost = async (req, res) => {
 
 export const deletePost = async (req, res) => {
     try {
-
-        const id = req.params.id
-        const tokenUserId = req.userId
-
+        const id = req.params.id;
+        const tokenUserId = req.userId;
         const post = await prisma.post.findUnique({
-            where: {id:id}
-        })
+            where: { id: id }
+        });
 
-        if(post.userID !== tokenUserId) {
-            return res.status(403).json(
-                {
-                    "success" : false,
-                    "message" : "Not authorized!"
-                }
-            )
+        if (!post || post.userID !== tokenUserId) {
+            return res.status(403).json({
+                success: false,
+                message: "Not authorized or post not found!"
+            });
         }
-
+        await prisma.postDetail.deleteMany({
+            where: {
+                postID: id
+            }
+        });
+        await prisma.savedPost.deleteMany({
+            where: {
+                postId: id
+            }
+        });
+        await prisma.booking.deleteMany({
+            where: {
+                postId: id
+            }
+        });
         const deletedPost = await prisma.post.delete({
-            where: {id:id}
-        })
+            where: { id: id }
+        });
 
-        res.status(200).json(
-            {
-                "success" : true,
-                "message" : "post deleted",
-                "post" : deletedPost
-            }
-        )
+        res.status(200).json({
+            success: true,
+            message: "Post and all related data deleted",
+            post: deletedPost
+        });
     } catch (error) {
-        console.error(error)
-        res.status(500).json(
-            {
-                "success" : false,
-                "message" : "Internal Server Error. Unable to DELETE post"
-            }
-        )
+        console.error(error);
+        res.status(500).json({
+            success: false,
+            message: "Internal Server Error. Unable to DELETE post"
+        });
     }
-}
+};

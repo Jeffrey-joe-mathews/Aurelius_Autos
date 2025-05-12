@@ -31,11 +31,14 @@ const SinglePage = () => {
       console.error(error)
     }
   }
-  // const deleteEvent = async () => {
-  //   try{
-  //     await apiRequest
-  //   }
-  // }
+  const deleteEvent = async () => {
+    try{
+      await apiRequest.delete("/posts/"+singlePostData.post.id, {})
+    }
+    catch(err) {
+      console.error(err)
+    }
+  }
   return (
     <div className='singlePage'>
       <div  className="details">
@@ -177,6 +180,12 @@ const SinglePage = () => {
               <img src="/chat.png" alt="" />
               send a message
             </button>
+            { currentUser.userInfo.id===singlePostData.post.userID &&
+              <button onClick={deleteEvent} >
+                <img src="/delete.svg" alt="" />
+                Delete
+              </button>
+            }
             <button onClick={saveEvent} style={{
               backgroundColor:saved?"#fece51":"white"
             }}>
