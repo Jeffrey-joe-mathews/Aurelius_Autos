@@ -1,5 +1,8 @@
 import { Link, useNavigate } from 'react-router-dom'
 import './Card.scss'
+import { useContext } from 'react'
+import { AuthContext } from '../../context/AuthContext'
+
 
 
 const Card = ({item}) => {
@@ -8,6 +11,8 @@ const Card = ({item}) => {
   const handleClick = () => {
     naviagate(`/list/${item.id}`)
   }
+  const { currentUser } = useContext(AuthContext)
+  console.log(currentUser)
   return (
     <div className='card' onClick={handleClick}>
       <Link to={`/list/${item.id}`} className="imageContainer" >
@@ -34,6 +39,10 @@ const Card = ({item}) => {
             </div>
           </div>
           <div className="icons">
+            { currentUser.userInfo.id === item.userID && 
+              <div className="icon">
+              <img src="/delete.svg" alt="save" />
+            </div>}
             <div className="icon">
               <img src="/save.png" alt="save" />
             </div>

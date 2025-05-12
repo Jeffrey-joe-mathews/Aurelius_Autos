@@ -31,6 +31,11 @@ const SinglePage = () => {
       console.error(error)
     }
   }
+  // const deleteEvent = async () => {
+  //   try{
+  //     await apiRequest
+  //   }
+  // }
   return (
     <div className='singlePage'>
       <div  className="details">
