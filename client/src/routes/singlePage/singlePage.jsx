@@ -60,6 +60,7 @@ const SinglePage = () => {
               </div>
             </div>
             <div className="bottom">{singlePostData.post.postDetail.desc}</div>
+            { currentUser.userInfo.id!==singlePostData.post.userID && 
 <div className="booking">
 <div className="summary">
   <p>Select Available Days:</p>
@@ -82,7 +83,7 @@ const SinglePage = () => {
     highlightDates={selectedDates}
     includeDates={singlePostData.post.availableDates.map(d => parseISO(d))}
     inline
-  />
+    />
     <p>Selected Days: {selectedDates.length}</p>
     <p>Total Price: ${selectedDates.length * singlePostData.post.price}</p>
   </div>
@@ -98,10 +99,11 @@ const SinglePage = () => {
         });
       }}
       disabled={selectedDates.length === 0}
-    >
+      >
       Proceed to Payment
     </button>
 </div>
+    }
 
           </div>
         </div>
@@ -176,14 +178,16 @@ const SinglePage = () => {
             <Map items ={[singlePostData.post]} />
           </div>
           <div className="buttons">
-            <button>
-              <img src="/chat.png" alt="" />
-              send a message
-            </button>
+            { currentUser.userInfo.id!==singlePostData.post.userID &&
+              <button>
+                <img src="/chat.png" alt="" />
+                send a message
+              </button>
+            }
             { currentUser.userInfo.id===singlePostData.post.userID &&
               <button onClick={deleteEvent} >
                 <img src="/delete.svg" alt="" />
-                Delete
+                Delete the Post
               </button>
             }
             <button onClick={saveEvent} style={{
