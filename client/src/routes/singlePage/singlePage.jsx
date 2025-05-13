@@ -16,6 +16,34 @@ const SinglePage = () => {
   const {currentUser} = useContext(AuthContext)
   const [saved, setSaved] = useState(singlePostData.isSaved)
   const [selectedDates, setSelectedDates] = useState([])
+
+  // const [showChat, setShowChat] = useState(false);
+  // const [userChats, setUserChats] = useState([]);
+
+  // const openChat = async () => {
+  // try {
+  //   const res = await apiRequest("/chats");
+  //   const existingChat = res.data.data.find(chat => 
+  //     chat.userIDs.includes(singlePostData.post.userID)
+  //   );
+
+  //   if (existingChat) {
+  //     setUserChats(res.data.data);
+  //     setShowChat(true);
+  //   } else {
+  //     // create a new chat
+  //     const createRes = await apiRequest.post("/chats", {
+  //       secondUserId: singlePostData.post.userID
+  //     });
+  //     setUserChats([...res.data.data, createRes.data.data]);
+  //     setShowChat(true);
+  //   }
+  // } catch (err) {
+  //   console.error("Failed to open chat:", err);
+  // }
+  // };
+
+
   console.log(singlePostData)
   const saveEvent = async() => {
     setSaved((prev) => !prev)
@@ -179,9 +207,11 @@ const SinglePage = () => {
           </div>
           <div className="buttons">
             { currentUser.userInfo.id!==singlePostData.post.userID &&
-              <button>
+              <button onClick={() => {
+                navigate('/profile')
+              }}>
                 <img src="/chat.png" alt="" />
-                send a message
+                Send a message
               </button>
             }
             { currentUser.userInfo.id===singlePostData.post.userID &&
