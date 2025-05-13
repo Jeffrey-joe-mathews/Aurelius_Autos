@@ -1,5 +1,3 @@
-
-
 import prisma from "../lib/prisma.js";
 
 export const createBooking = async (req, res) => {
@@ -48,3 +46,58 @@ export const createBooking = async (req, res) => {
     res.status(500).json({ success: false, message: "Booking failed" });
   }
 };
+
+export const getBooking  = async(req, res) => {
+
+  try{
+    const postId = req.params.id
+    const currentUserId = req.userId
+
+    console.log(postId)
+    const post = await prisma.post.findUnique({
+      where:{
+        id:postId
+      }
+    });
+    console.log(post.userID)
+    console.log(currentUserId)
+    if(!post || post.userID!==currentUserId) {
+      return res.status(403).json(
+        {
+          success: false,
+          message: "Not authorized to view bookings"
+        }
+      )
+    }
+
+    const bookings = await prisma.booking.findMany({
+      where: {
+        postId: postId
+      },
+      include: {
+        user: {
+          select: {
+            id: true,
+            username: true,
+            avatar: true,
+            email: true
+          },
+        },
+      },
+    });
+    return res.status(200).json(
+      {
+        success: true,
+        data: bookings
+      }
+    )
+  }
+  catch(err) {
+    return res.status(500).json(
+      {
+        success: false,
+        message: "Failed to fetch Bookings"
+      }
+    )
+  }
+}
