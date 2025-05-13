@@ -52,15 +52,12 @@ export const getBooking  = async(req, res) => {
   try{
     const postId = req.params.id
     const currentUserId = req.userId
-
-    console.log(postId)
+    
     const post = await prisma.post.findUnique({
       where:{
         id:postId
       }
     });
-    console.log(post.userID)
-    console.log(currentUserId)
     if(!post || post.userID!==currentUserId) {
       return res.status(403).json(
         {

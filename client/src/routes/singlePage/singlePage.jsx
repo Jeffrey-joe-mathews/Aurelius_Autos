@@ -2,7 +2,7 @@ import ImgSlider from '../../components/imgSlider/ImgSlider'
 import './singlePage.scss'
 import Map from '../../components/map/Map.jsx'
 import { useLoaderData, useNavigate } from 'react-router-dom'
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { AuthContext } from '../../context/AuthContext.jsx'
 import apiRequest from '../../lib/apiRequest.js'
 import DatePicker from "react-datepicker";
@@ -16,32 +16,7 @@ const SinglePage = () => {
   const {currentUser} = useContext(AuthContext)
   const [saved, setSaved] = useState(singlePostData.isSaved)
   const [selectedDates, setSelectedDates] = useState([])
-
-  // const [showChat, setShowChat] = useState(false);
-  // const [userChats, setUserChats] = useState([]);
-
-  // const openChat = async () => {
-  // try {
-  //   const res = await apiRequest("/chats");
-  //   const existingChat = res.data.data.find(chat => 
-  //     chat.userIDs.includes(singlePostData.post.userID)
-  //   );
-
-  //   if (existingChat) {
-  //     setUserChats(res.data.data);
-  //     setShowChat(true);
-  //   } else {
-  //     // create a new chat
-  //     const createRes = await apiRequest.post("/chats", {
-  //       secondUserId: singlePostData.post.userID
-  //     });
-  //     setUserChats([...res.data.data, createRes.data.data]);
-  //     setShowChat(true);
-  //   }
-  // } catch (err) {
-  //   console.error("Failed to open chat:", err);
-  // }
-  // };
+  const [booking, setBooking] = useState([])
 
 
   console.log(singlePostData)
@@ -67,6 +42,21 @@ const SinglePage = () => {
       console.error(err)
     }
   }
+  useEffect(() => {
+    const fetchBooking = async () => {
+      if (currentUser.userInfo.id === singlePostData.post.userID) {
+        try {
+          const res = await apiRequest.get("/booking/" + singlePostData.post.id);
+          setBooking(res.data.data);
+        } catch (err) {
+          console.error(err);
+        }
+      }
+    };
+
+    fetchBooking();
+  }, []);
+
   return (
     <div className='singlePage'>
       <div  className="details">
@@ -80,7 +70,7 @@ const SinglePage = () => {
                   <img src="/pin.png" alt="" />
                   <span>{singlePostData.post.city}</span>
                 </div>
-                <div className="price">$ {singlePostData.post.price}</div>
+                <div className="price">$ {singlePostData.post.price} / day</div>
               </div>
               <div className="user">
                 <img src={singlePostData.post.user.avatar} alt="profile pic" />
@@ -134,6 +124,25 @@ const SinglePage = () => {
     }
 
           </div>
+          { currentUser.userInfo.id===singlePostData.post.userID && <div className='bookings' >
+            <h2>Bookings</h2>
+            {booking.length === 0 ? (
+              <p>No Bookings Yet</p>
+            ) : (
+              booking.map(b => (
+        <div key={b.id} className="booking-entry">
+          <img src={b.user.avatar} alt="avatar" />
+          <span>{b.user.username}</span>
+          <span>{b.user.email}</span>
+          <ul>
+            {b.bookedDates.map(date => (
+              <li key={date}>{new Date(date).toDateString()}</li>
+            ))}
+          </ul>
+        </div>
+      ))
+            )}
+          </div>}
         </div>
       </div>
       <div className="features">

@@ -11,7 +11,7 @@ const Pin = ({item}) => {
                 <div className="txtContainer">
                     <Link to={`/list/${item.id}`} >{item.title}</Link>
                     <span className='trans' >{item.bedroom} transmission</span>
-                    <b>$ {item.price}</b>
+                    <b>$ {item.price}/day</b>
                 </div>
             </div>
         </Popup>

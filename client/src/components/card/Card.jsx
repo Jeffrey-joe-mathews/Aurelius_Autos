@@ -26,7 +26,7 @@ const Card = ({item}) => {
           <img src="/pin.png" alt="address" />
           <span>{item.city}</span>
         </p>
-        <p className='price' >$ {item.price}</p>
+        <p className='price' >$ {item.price} / day</p>
         <div className="bottom">
           <div className="features">
             <div className="feature">

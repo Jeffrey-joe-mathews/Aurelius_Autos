@@ -22,6 +22,32 @@
         .wrapper {
             padding-right: 50px;
 
+            .bookings {
+                h2 {
+                    color: rgb(100, 100, 100);
+                }
+                p{
+                    margin-top: 20px;
+                }
+                .booking-entry{
+                    margin-top: 10px;
+                    margin-bottom: 10px;
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: space-evenly;
+                    img {
+                        height: 50px;
+                        width: 50px;
+                        border-radius: 50%;
+                    }
+                    ul{
+                        list-style: none;
+                    }
+                }
+                overflow-y: scroll;
+            }
+
             .info {
                 margin-top: 30px;
                 .top {
