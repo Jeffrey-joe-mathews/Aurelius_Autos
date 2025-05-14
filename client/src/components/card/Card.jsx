@@ -39,7 +39,7 @@ const Card = ({item}) => {
             </div>
           </div>
           <div className="icons">
-            { currentUser.userInfo.id === item.userID && 
+            { currentUser!==null && currentUser.userInfo.id === item.userID && 
               <div className="icon">
               <img src="/delete.svg" alt="save" />
             </div>}

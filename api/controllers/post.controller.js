@@ -65,7 +65,7 @@ export const getPost = async (req, res) => {
                 }
             }
         })
-        let userID
+        let userID = req.id
         const token = req.cookies.token;
         if(!token) {
             userID = null;
@@ -80,6 +80,7 @@ export const getPost = async (req, res) => {
                 }
             })
         }
+        
 
         const saved = await prisma.savedPost.findUnique({
             where: {
@@ -90,14 +91,14 @@ export const getPost = async (req, res) => {
             }
         })
 
-        res.status(200).json(
+        return res.status(200).json(
             {
                 post, isSaved:saved?true:false
             }
         )
     } catch (error) {
         console.error(error)
-        res.status(500).json(
+        return res.status(500).json(
             {
                 "success" : false,
                 "message" : "Internal Server Error. Unable to GET post"

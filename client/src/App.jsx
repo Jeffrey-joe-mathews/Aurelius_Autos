@@ -11,6 +11,8 @@ import ProfileUpdatePage from './routes/profileUpdatePage/profileUpdatePage'
 import CreatePostPage from './routes/createPostPage/createPostPage'
 import { listPageLoader, profilePageLoader, singlePageLoader } from './lib/loaders'
 import PaymentPage from './routes/paymentPage/paymentPage'
+import AboutPage from './routes/aboutPage/aboutPage'
+import ContactPage from './routes/contactPage/contactPage'
 
 const App = () => {
   const router = createBrowserRouter([
@@ -39,6 +41,14 @@ const App = () => {
         {
           path: "/login",
           element: <Login />
+        },
+        {
+          path: "/about",
+          element: <AboutPage />
+        },
+        {
+          path: "/contact",
+          element: <ContactPage />
         }
       ]
     },
