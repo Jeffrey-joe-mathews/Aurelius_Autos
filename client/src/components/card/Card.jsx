@@ -9,7 +9,12 @@ const Card = ({item}) => {
   const naviagate = useNavigate()
   console.log(item)
   const handleClick = () => {
-    naviagate(`/list/${item.id}`)
+    if(currentUser!==null) {
+      naviagate(`/list/${item.id}`)
+    }
+    else {
+      naviagate('/register')
+    }
   }
   const { currentUser } = useContext(AuthContext)
   console.log(currentUser)

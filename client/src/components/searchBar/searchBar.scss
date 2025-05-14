@@ -6,8 +6,9 @@
             padding: 16px 36px;
             border: 1px solid grey;
             cursor: pointer;
-            background-color: white;
+            background-color: black;
             text-transform: capitalize;
+            color: white;
 
             &.active {
                 background-color: black;
@@ -78,7 +79,7 @@
             button {
                 border: none;
                 cursor: pointer;
-                background-color: #fece51;                
+                background-color: transparent;                
                 img {
                     width: 24px;
                 }
